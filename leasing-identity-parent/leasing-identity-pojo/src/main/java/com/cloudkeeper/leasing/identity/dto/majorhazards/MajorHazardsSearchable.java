@@ -37,6 +37,14 @@ public class MajorHazardsSearchable extends BaseSearchable {
     @ApiModelProperty(value = "具体描述", position = 10, required = true)
     private String description;
 
+    /** 开始时间 */
+    @ApiModelProperty(value = "开始时间", position = 10, required = true)
+    private LocalDate startTime;
+
+    /** 结束时间 */
+    @ApiModelProperty(value = "结束时间", position = 10, required = true)
+    private LocalDate endTime;
+
     /** 危害 */
     @ApiModelProperty(value = "危害", position = 10, required = true)
     private String damage;

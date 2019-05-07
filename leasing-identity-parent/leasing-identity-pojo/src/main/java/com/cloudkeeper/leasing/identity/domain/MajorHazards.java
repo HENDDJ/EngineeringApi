@@ -1,6 +1,7 @@
 package com.cloudkeeper.leasing.identity.domain;
 
 import com.cloudkeeper.leasing.base.domain.BaseEntity;
+import com.cloudkeeper.leasing.identity.vo.MajorHazardsVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,10 +9,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.util.StringUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.annotation.Nonnull;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -34,6 +36,12 @@ public class MajorHazards extends BaseEntity {
     @Column(length = 60)
     private String proId;
 
+    /** 工程 */
+    @ApiModelProperty(value = "工程", position = 24)
+    @ManyToOne
+    @JoinColumn(name = "proId", insertable = false, updatable = false)
+    private ProjectInfo project;
+
     /** 危险源工作类型 */
     @ApiModelProperty(value = "危险源工作类型", position = 10, required = true)
     @Column(length = 60)
@@ -47,16 +55,27 @@ public class MajorHazards extends BaseEntity {
     /** 开始时间 */
     @ApiModelProperty(value = "开始时间", position = 10, required = true)
     @Column(length = 60)
-    private LocalDateTime startTime;
+    private LocalDate startTime;
 
     /** 结束时间 */
     @ApiModelProperty(value = "结束时间", position = 10, required = true)
     @Column(length = 60)
-    private LocalDateTime endTime;
+    private LocalDate endTime;
 
     /** 危害 */
     @ApiModelProperty(value = "危害", position = 10, required = true)
     @Column(length = 60)
     private String damage;
+
+    @Nonnull
+    @Override
+    public <T> T convert(@Nonnull Class<T> clazz) {
+        T convert = super.convert(clazz);
+        MajorHazardsVO majorHazardsVO = (MajorHazardsVO) convert;
+        if(!StringUtils.isEmpty(this.project)){
+            majorHazardsVO.setProjectName(this.project.getName());
+        }
+        return (T) majorHazardsVO;
+    }
 
 }

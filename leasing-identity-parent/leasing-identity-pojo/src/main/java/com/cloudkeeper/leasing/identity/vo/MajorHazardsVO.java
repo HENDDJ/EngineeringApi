@@ -39,14 +39,17 @@ public class MajorHazardsVO extends BaseVO {
 
     /** 开始时间 */
     @ApiModelProperty(value = "开始时间", position = 10, required = true)
-    private LocalDateTime startTime;
+    private LocalDate startTime;
 
     /** 结束时间 */
     @ApiModelProperty(value = "结束时间", position = 10, required = true)
-    private LocalDateTime endTime;
+    private LocalDate endTime;
 
     /** 危害 */
     @ApiModelProperty(value = "危害", position = 10, required = true)
     private String damage;
+
+    @ApiModelProperty(value = "工程", position = 26, required = true)
+    private String projectName;
 
 }
