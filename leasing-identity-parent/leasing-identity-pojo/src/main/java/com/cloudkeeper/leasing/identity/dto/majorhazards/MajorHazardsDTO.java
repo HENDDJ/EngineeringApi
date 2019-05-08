@@ -49,4 +49,8 @@ public class MajorHazardsDTO extends BaseEditDTO {
     @ApiModelProperty(value = "危害", position = 10, required = true)
     private String damage;
 
+    /** 状态 */
+    @ApiModelProperty(value = "状态", position = 10, required = true)
+    private String state;
+
 }

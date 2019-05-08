@@ -49,7 +49,12 @@ public class MajorHazardsVO extends BaseVO {
     @ApiModelProperty(value = "危害", position = 10, required = true)
     private String damage;
 
-    @ApiModelProperty(value = "工程", position = 26, required = true)
+    /** 状态 */
+    @ApiModelProperty(value = "状态", position = 10, required = true)
+    private String state;
+
+    /** 工程名称 */
+    @ApiModelProperty(value = "工程名称", position = 26, required = true)
     private String projectName;
 
 }

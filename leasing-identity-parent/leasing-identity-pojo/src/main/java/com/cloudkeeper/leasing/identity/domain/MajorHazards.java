@@ -67,6 +67,11 @@ public class MajorHazards extends BaseEntity {
     @Column(length = 60)
     private String damage;
 
+    /** 状态 */
+    @ApiModelProperty(value = "状态", position = 10, required = true)
+    @Column(length = 60)
+    private String state;
+
     @Nonnull
     @Override
     public <T> T convert(@Nonnull Class<T> clazz) {
