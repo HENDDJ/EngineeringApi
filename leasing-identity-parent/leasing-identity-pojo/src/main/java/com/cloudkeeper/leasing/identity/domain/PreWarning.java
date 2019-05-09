@@ -75,29 +75,24 @@ public class PreWarning extends BaseEntity {
     public <T> T convert(@Nonnull Class<T> clazz) {
         T convert = super.convert(clazz);
         PreWarningVO preWarningVO = (PreWarningVO) convert;
-        /*if(!StringUtils.isEmpty(this.typeId)){
-            if(type=="SPECIAL_EQUIPMENT"){*/
-                if(!StringUtils.isEmpty(this.safetyEquipment)) {
-                    //特种设备数据赋值
-                    preWarningVO.setRegistrationCode(this.safetyEquipment.getRegistrationCode());
-                    preWarningVO.setEquipmentType(this.safetyEquipment.getEquipmentType());
-                    preWarningVO.setLastInspectionTime(this.safetyEquipment.getLastInspectionTime());
-                    preWarningVO.setEquipmentType(this.safetyEquipment.getEquipmentType());
-                    preWarningVO.setNextInspectionTime(this.safetyEquipment.getNextInspectionTime());
-                }
-           /* }*/
-          /*  if(type=="MAJOR_HAZARDS") {*/
-                if(!StringUtils.isEmpty(this.majorHazards)) {
-                    //重大危险源数据赋值
-                    preWarningVO.setMajorWorkType(this.majorHazards.getWorkType());
-                    preWarningVO.setMajorDescription(this.majorHazards.getDescription());
-                    preWarningVO.setMajorStartTime(this.majorHazards.getStartTime());
-                    preWarningVO.setMajorEndTime(this.majorHazards.getEndTime());
-                    preWarningVO.setMajorDamage(this.majorHazards.getDamage());
-                    preWarningVO.setMajorState(this.majorHazards.getState());
-                }
-           /* }*/
-      /*  }*/
+        //特种设备数据赋值
+        if(!StringUtils.isEmpty(this.safetyEquipment)) {
+            preWarningVO.setRegistrationCode(this.safetyEquipment.getRegistrationCode());
+            preWarningVO.setEquipmentType(this.safetyEquipment.getEquipmentType());
+            preWarningVO.setLastInspectionTime(this.safetyEquipment.getLastInspectionTime());
+            preWarningVO.setEquipmentType(this.safetyEquipment.getEquipmentType());
+            preWarningVO.setNextInspectionTime(this.safetyEquipment.getNextInspectionTime());
+        }
+        //重大危险源数据赋值
+        if(!StringUtils.isEmpty(this.majorHazards)) {
+            preWarningVO.setMajorWorkType(this.majorHazards.getWorkType());
+            preWarningVO.setMajorDescription(this.majorHazards.getDescription());
+            preWarningVO.setMajorStartTime(this.majorHazards.getStartTime());
+            preWarningVO.setMajorEndTime(this.majorHazards.getEndTime());
+            preWarningVO.setMajorDamage(this.majorHazards.getDamage());
+            preWarningVO.setMajorState(this.majorHazards.getState());
+        }
+
         //工程名称赋值
         if(!StringUtils.isEmpty(this.project)){
             preWarningVO.setProjectName(this.project.getName());
