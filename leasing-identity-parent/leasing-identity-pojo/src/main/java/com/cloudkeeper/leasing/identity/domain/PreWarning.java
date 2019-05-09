@@ -43,7 +43,7 @@ public class PreWarning extends BaseEntity {
     @Column(length = 60)
     private String warnDescribe;
 
-    /** 角色 */
+    /** 特种设备信息 */
     @ApiModelProperty(value = "特种设备信息", position = 28)
     @ManyToOne
     @JoinColumn(name = "typeId", insertable = false, updatable = false)
