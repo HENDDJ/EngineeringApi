@@ -41,4 +41,23 @@ public class EmergencyAccidentResultVO extends BaseVO {
     @ApiModelProperty(value = "附件", position = 10, required = true)
     private String enclosure;
 
+    @ApiModelProperty(value = "事故名称", position = 10, required = true)
+    private String name;
+
+    /** 事故发生部门 */
+    @ApiModelProperty(value = "事故发生部门", position = 10, required = true)
+    private String department;
+
+    /** 事故发生时间 */
+    @ApiModelProperty(value = "事故发生时间", position = 10, required = true)
+    private LocalDate occurrenceTime;
+
+    /** 负责人 */
+    @ApiModelProperty(value = "负责人", position = 10, required = true)
+    private String chargePerson;
+
+    /** 当事人姓名 */
+    @ApiModelProperty(value = "当事人姓名", position = 10, required = true)
+    private String litigantName;
+
 }

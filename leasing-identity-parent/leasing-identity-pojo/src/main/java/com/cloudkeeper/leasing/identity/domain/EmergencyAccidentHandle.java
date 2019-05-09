@@ -1,7 +1,7 @@
 package com.cloudkeeper.leasing.identity.domain;
 
 import com.cloudkeeper.leasing.base.domain.BaseEntity;
-import com.cloudkeeper.leasing.identity.vo.EmergencyAccidentVO;
+import com.cloudkeeper.leasing.identity.vo.EmergencyAccidentHandleVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Nonnull;
@@ -54,6 +55,25 @@ public class EmergencyAccidentHandle extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "accidentId", insertable = false, updatable = false)
     private EmergencyAccident emergencyAccident;
+
+    /** 判断有无结果 */
+    @Nonnull
+    @Override
+    public <T> T convert(@Nonnull Class<T> clazz) {
+        T convert = super.convert(clazz);
+        EmergencyAccidentHandleVO emergencyAccidentHandleVO = (EmergencyAccidentHandleVO) convert;
+        if(!StringUtils.isEmpty(this.getEmergencyAccident()) && !StringUtils.isEmpty(this.getEmergencyAccident().getEmergencyAccidentResult())){
+            emergencyAccidentHandleVO.setAccidentResult("1");
+        }else{
+            emergencyAccidentHandleVO.setAccidentResult("0");
+        }
+        emergencyAccidentHandleVO.setName(this.emergencyAccident.getName());
+        emergencyAccidentHandleVO.setDepartment(this.emergencyAccident.getDepartment());
+        emergencyAccidentHandleVO.setOccurrenceTime(this.emergencyAccident.getOccurrenceTime());
+        emergencyAccidentHandleVO.setChargePerson(this.emergencyAccident.getChargePerson());
+        emergencyAccidentHandleVO.setLitigantName(this.emergencyAccident.getLitigantName());
+        return (T) emergencyAccidentHandleVO;
+    }
 
 
 

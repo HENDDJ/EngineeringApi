@@ -1,6 +1,7 @@
 package com.cloudkeeper.leasing.identity.domain;
 
 import com.cloudkeeper.leasing.base.domain.BaseEntity;
+import com.cloudkeeper.leasing.identity.vo.EmergencyAccidentResultVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.util.StringUtils;
 
+import javax.annotation.Nonnull;
 import javax.persistence.*;
 
 /**
@@ -50,5 +53,18 @@ public class EmergencyAccidentResult extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "accidentId", insertable = false, updatable = false)
     private EmergencyAccident emergencyAccident;
+
+    @Nonnull
+    @Override
+    public <T> T convert(@Nonnull Class<T> clazz) {
+        T convert = super.convert(clazz);
+        EmergencyAccidentResultVO emergencyAccidentResultVO = (EmergencyAccidentResultVO) convert;
+        emergencyAccidentResultVO.setName(this.emergencyAccident.getName());
+        emergencyAccidentResultVO.setDepartment(this.emergencyAccident.getDepartment());
+        emergencyAccidentResultVO.setOccurrenceTime(this.emergencyAccident.getOccurrenceTime());
+        emergencyAccidentResultVO.setChargePerson(this.emergencyAccident.getChargePerson());
+        emergencyAccidentResultVO.setLitigantName(this.emergencyAccident.getLitigantName());
+        return (T) emergencyAccidentResultVO;
+    }
 
 }
