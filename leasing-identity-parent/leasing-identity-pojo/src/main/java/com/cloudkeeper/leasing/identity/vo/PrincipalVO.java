@@ -72,6 +72,9 @@ public class PrincipalVO extends BaseVO {
     @ApiModelProperty(value = "角色", position = 28, required = true)
     private String roleName;
 
+    @ApiModelProperty(value = "编码", position = 28, required = true)
+    private String roleCode;
+
 
 
 }

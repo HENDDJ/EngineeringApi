@@ -95,6 +95,7 @@ public class Principal extends BaseEntity {
         }
         if(!StringUtils.isEmpty(this.role)){
             principalVO.setRoleName(this.role.getName());
+            principalVO.setRoleCode(this.role.getCode());
         }
 
         return (T) principalVO;
