@@ -25,6 +25,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PreWarningVO extends BaseVO {
 
+    /** 工程id */
+    @ApiModelProperty(value = "工程id", position = 10, required = true)
+    private String proId;
+
     /** 预警类型 */
     @ApiModelProperty(value = "预警类型", position = 10, required = true)
     private String type;
@@ -56,6 +60,34 @@ public class PreWarningVO extends BaseVO {
     /** 上次检查时间 */
     @ApiModelProperty(value = "下次检查时间", position = 10, required = true)
     private LocalDate nextInspectionTime;
+
+    /** 工程名称 */
+    @ApiModelProperty(value = "工程名称", position = 26, required = true)
+    private String projectName;
+
+    /** 重大危险源作业类型 */
+    @ApiModelProperty(value = "重大危险源工作类型", position = 26, required = true)
+    private String majorWorkType;
+
+    /** 重大危险源具体描述*/
+    @ApiModelProperty(value = "重大危险源具体描述", position = 26, required = true)
+    private String majorDescription;
+
+    /** 重大危险源开始时间 */
+    @ApiModelProperty(value = "重大危险源开始时间", position = 26, required = true)
+    private LocalDate majorStartTime;
+
+    /** 重大危险源结束时间 */
+    @ApiModelProperty(value = "重大危险源结束时间", position = 26, required = true)
+    private LocalDate majorEndTime;
+
+    /** 重大危险源危害 */
+    @ApiModelProperty(value = "重大危险源危害", position = 26, required = true)
+    private String majorDamage;
+
+    /** 重大危险源状态 */
+    @ApiModelProperty(value = "重大危险源状态", position = 26, required = true)
+    private String majorState;
 
 
 }
