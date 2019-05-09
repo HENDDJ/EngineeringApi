@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Nonnull;
@@ -28,6 +30,17 @@ import javax.persistence.*;
 @Table(name = "pre_warning")
 public class PreWarning extends BaseEntity {
 
+    /** 工程id */
+    @ApiModelProperty(value = "工程id", position = 10, required = true)
+    @Column(length = 60)
+    private String proId;
+
+    /** 工程 */
+    @ApiModelProperty(value = "工程", position = 24)
+    @ManyToOne
+    @JoinColumn(name = "proId", insertable = false, updatable = false)
+    private ProjectInfo project;
+
     /** 预警类型 */
     @ApiModelProperty(value = "预警类型", position = 10, required = true)
     @Column(length = 60)
@@ -38,6 +51,13 @@ public class PreWarning extends BaseEntity {
     @Column(length = 60)
     private String typeId;
 
+    /** 重大危险源 */
+    @ApiModelProperty(value = "重大危险源", position = 24)
+    @ManyToOne()
+    @JoinColumn(name = "typeId", insertable = false, updatable = false)
+    @NotFound(action= NotFoundAction.IGNORE)
+    private MajorHazards majorHazards;
+
     /** 预警类型 */
     @ApiModelProperty(value = "预警描述", position = 10, required = true)
     @Column(length = 60)
@@ -47,6 +67,7 @@ public class PreWarning extends BaseEntity {
     @ApiModelProperty(value = "特种设备信息", position = 28)
     @ManyToOne
     @JoinColumn(name = "typeId", insertable = false, updatable = false)
+    @NotFound(action=NotFoundAction.IGNORE)
     private SafetyEquipment safetyEquipment;
 
     @Nonnull
@@ -54,15 +75,28 @@ public class PreWarning extends BaseEntity {
     public <T> T convert(@Nonnull Class<T> clazz) {
         T convert = super.convert(clazz);
         PreWarningVO preWarningVO = (PreWarningVO) convert;
-        if(!StringUtils.isEmpty(this.typeId)){
+        //特种设备数据赋值
+        if(!StringUtils.isEmpty(this.safetyEquipment)) {
             preWarningVO.setRegistrationCode(this.safetyEquipment.getRegistrationCode());
             preWarningVO.setEquipmentType(this.safetyEquipment.getEquipmentType());
             preWarningVO.setLastInspectionTime(this.safetyEquipment.getLastInspectionTime());
             preWarningVO.setEquipmentType(this.safetyEquipment.getEquipmentType());
             preWarningVO.setNextInspectionTime(this.safetyEquipment.getNextInspectionTime());
         }
+        //重大危险源数据赋值
+        if(!StringUtils.isEmpty(this.majorHazards)) {
+            preWarningVO.setMajorWorkType(this.majorHazards.getWorkType());
+            preWarningVO.setMajorDescription(this.majorHazards.getDescription());
+            preWarningVO.setMajorStartTime(this.majorHazards.getStartTime());
+            preWarningVO.setMajorEndTime(this.majorHazards.getEndTime());
+            preWarningVO.setMajorDamage(this.majorHazards.getDamage());
+            preWarningVO.setMajorState(this.majorHazards.getState());
+        }
 
-
+        //工程名称赋值
+        if(!StringUtils.isEmpty(this.project)){
+            preWarningVO.setProjectName(this.project.getName());
+        }
         return (T) preWarningVO;
     }
 
