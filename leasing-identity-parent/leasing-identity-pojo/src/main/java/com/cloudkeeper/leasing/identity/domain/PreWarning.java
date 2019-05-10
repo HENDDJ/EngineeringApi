@@ -37,7 +37,7 @@ public class PreWarning extends BaseEntity {
 
     /** 工程 */
     @ApiModelProperty(value = "工程", position = 24)
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "proId", insertable = false, updatable = false)
     private ProjectInfo project;
 
@@ -77,6 +77,7 @@ public class PreWarning extends BaseEntity {
         PreWarningVO preWarningVO = (PreWarningVO) convert;
         //特种设备数据赋值
         if(!StringUtils.isEmpty(this.safetyEquipment)) {
+            preWarningVO.setProjectName(this.project.getName());
             preWarningVO.setRegistrationCode(this.safetyEquipment.getRegistrationCode());
             preWarningVO.setEquipmentType(this.safetyEquipment.getEquipmentType());
             preWarningVO.setLastInspectionTime(this.safetyEquipment.getLastInspectionTime());

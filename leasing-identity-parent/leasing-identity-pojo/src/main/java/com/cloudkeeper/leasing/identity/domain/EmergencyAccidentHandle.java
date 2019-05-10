@@ -64,14 +64,15 @@ public class EmergencyAccidentHandle extends BaseEntity {
         EmergencyAccidentHandleVO emergencyAccidentHandleVO = (EmergencyAccidentHandleVO) convert;
         if(!StringUtils.isEmpty(this.getEmergencyAccident()) && !StringUtils.isEmpty(this.getEmergencyAccident().getEmergencyAccidentResult())){
             emergencyAccidentHandleVO.setAccidentResult("1");
+            emergencyAccidentHandleVO.setName(this.emergencyAccident.getName());
+            emergencyAccidentHandleVO.setDepartment(this.emergencyAccident.getDepartment());
+            emergencyAccidentHandleVO.setOccurrenceTime(this.emergencyAccident.getOccurrenceTime());
+            emergencyAccidentHandleVO.setChargePerson(this.emergencyAccident.getChargePerson());
+            emergencyAccidentHandleVO.setLitigantName(this.emergencyAccident.getLitigantName());
         }else{
             emergencyAccidentHandleVO.setAccidentResult("0");
         }
-        emergencyAccidentHandleVO.setName(this.emergencyAccident.getName());
-        emergencyAccidentHandleVO.setDepartment(this.emergencyAccident.getDepartment());
-        emergencyAccidentHandleVO.setOccurrenceTime(this.emergencyAccident.getOccurrenceTime());
-        emergencyAccidentHandleVO.setChargePerson(this.emergencyAccident.getChargePerson());
-        emergencyAccidentHandleVO.setLitigantName(this.emergencyAccident.getLitigantName());
+
         return (T) emergencyAccidentHandleVO;
     }
 
