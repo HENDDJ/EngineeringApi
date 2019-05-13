@@ -41,4 +41,8 @@ public class HiddenHandleSearchable extends BaseSearchable {
     @ApiModelProperty(value = "处理完成时间", position = 10, required = true)
     private LocalDate solveTime;
 
+    /** 附件 */
+    @ApiModelProperty(value = "附件", position = 10, required = true)
+    private String enclosure;
+
 }

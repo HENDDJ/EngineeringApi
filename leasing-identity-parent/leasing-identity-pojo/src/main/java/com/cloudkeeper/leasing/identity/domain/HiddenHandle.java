@@ -1,6 +1,7 @@
 package com.cloudkeeper.leasing.identity.domain;
 
 import com.cloudkeeper.leasing.base.domain.BaseEntity;
+import com.cloudkeeper.leasing.identity.vo.HiddenHandleVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,10 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.util.StringUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.annotation.Nonnull;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -47,5 +48,30 @@ public class HiddenHandle extends BaseEntity {
     @ApiModelProperty(value = "处理完成时间", position = 10, required = true)
     @Column(length = 60)
     private LocalDate solveTime;
+
+    /** 附件 */
+    @ApiModelProperty(value = "附件", position = 10, required = true)
+    @Column(length = 60)
+    private String enclosure;
+
+    /** 隐患信息 */
+    @ApiModelProperty(value = "隐患信息", position = 28)
+    @OneToOne
+    @JoinColumn(name = "issueId", insertable = false, updatable = false)
+    private HiddenIssue hiddenIssue;
+
+    @Nonnull
+    @Override
+    public <T> T convert(@Nonnull Class<T> clazz) {
+        T convert = super.convert(clazz);
+        HiddenHandleVO hiddenHandleVO = (HiddenHandleVO) convert;
+        if(!StringUtils.isEmpty(this.hiddenIssue)){
+            hiddenHandleVO.setIssueName(this.hiddenIssue.getIssueName());
+            hiddenHandleVO.setProjectId(this.hiddenIssue.getProjectId());
+            hiddenHandleVO.setStatusName(this.hiddenIssue.getHiddenNode().getNodeDescript());
+        }
+
+        return (T) hiddenHandleVO;
+    }
 
 }

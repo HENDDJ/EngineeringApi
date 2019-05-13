@@ -28,8 +28,8 @@ zuul:
 #  sensitive-headers:
 
 ribbon:
-  ReadTimeout: 100000  # 单位毫秒数
-  SocketTimeout: 100000
+  ReadTimeout: 1000000  # 单位毫秒数
+  SocketTimeout: 1000000
 
 hystrix:
   command:
@@ -37,4 +37,4 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 250000
+            timeoutInMilliseconds: 2500000

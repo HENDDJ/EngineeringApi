@@ -65,4 +65,20 @@ public class HiddenIssueVO extends BaseVO {
     @ApiModelProperty(value = "状态", position = 10, required = true)
     private String status;
 
+    /** 状态描述 */
+    @ApiModelProperty(value = "状态描述", position = 10, required = true)
+    private String statusName;
+
+    /** 用户姓名 */
+    @ApiModelProperty(value = "用户姓名", position = 10, required = true)
+    private String userName;
+
+    /** 工程 */
+    @ApiModelProperty(value = "工程名称", position = 10, required = true)
+    private String projectName;
+
+    /** 部门名称 */
+    @ApiModelProperty(value = "部门名称", position = 10, required = true)
+    private String departmentName;
+
 }

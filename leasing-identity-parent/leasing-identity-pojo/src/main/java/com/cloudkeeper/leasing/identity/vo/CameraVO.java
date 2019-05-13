@@ -27,7 +27,7 @@ public class CameraVO extends BaseVO {
 
     /** 名称 */
     @ApiModelProperty(value = "名称", position = 10, required = true)
-    private String pid;
+    private String pId;
 
     private String cameraUuid;
 

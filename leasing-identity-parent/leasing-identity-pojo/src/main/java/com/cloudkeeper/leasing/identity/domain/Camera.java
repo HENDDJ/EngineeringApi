@@ -27,7 +27,7 @@ import javax.persistence.Table;
 @Table(name = "CM_Camera")
 public class Camera extends BaseEntity {
 
-    private String pid;
+    private String pId;
     private String cameraUuid;
     private String regionUuid;
     private String cameraName;

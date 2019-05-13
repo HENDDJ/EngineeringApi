@@ -71,22 +71,22 @@ public class EmergencyAccident extends BaseEntity {
     @Column(length = 60)
     private LocalDate litigantWorkTime;
 
-    /** 当事人姓名 */
+    /** 当事人岗位 */
     @ApiModelProperty(value = "当事人岗位", position = 10, required = true)
     @Column(length = 60)
     private String litigantPost;
 
-    /** 当事人姓名 */
+    /** 受伤部位及情况 */
     @ApiModelProperty(value = "受伤部位及情况", position = 10, required = true)
     @Column(length = 60)
     private String injuredPart;
 
-    /** 当事人姓名 */
+    /** 事故简述 */
     @ApiModelProperty(value = "事故简述", position = 10, required = true)
     @Column(length = 60)
     private String accidentPassing;
 
-    /** 当事人姓名 */
+    /** 附件 */
     @ApiModelProperty(value = "附件", position = 10, required = true)
     @Column(length = 60)
     private String enclosure;

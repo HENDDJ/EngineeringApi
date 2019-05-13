@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,4 +42,19 @@ public class HiddenHandleVO extends BaseVO {
     @ApiModelProperty(value = "处理完成时间", position = 10, required = true)
     private LocalDate solveTime;
 
+    /** 附件 */
+    @ApiModelProperty(value = "附件", position = 10, required = true)
+    private String enclosure;
+
+    /** 名称 */
+    @ApiModelProperty(value = "名称", position = 10, required = true)
+    private String issueName;
+
+    /** 工程ID */
+    @ApiModelProperty(value = "工程ID", position = 10, required = true)
+    private String projectId;
+
+    /** 状态描述 */
+    @ApiModelProperty(value = "状态描述", position = 10, required = true)
+    private String statusName;
 }

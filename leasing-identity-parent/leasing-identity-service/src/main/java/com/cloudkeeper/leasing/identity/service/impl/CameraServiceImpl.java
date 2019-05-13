@@ -29,7 +29,7 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
     @Override
     public ExampleMatcher defaultExampleMatcher() {
         return super.defaultExampleMatcher()
-                .withMatcher("pid", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("pId", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("cameraUuid", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("regionUuid", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("cameraName", ExampleMatcher.GenericPropertyMatchers.contains())

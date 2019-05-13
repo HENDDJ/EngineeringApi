@@ -1,6 +1,7 @@
 package com.cloudkeeper.leasing.identity.dto.camera;
 
 import com.cloudkeeper.leasing.base.dto.BaseSearchable;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,8 @@ public class CameraSearchable extends BaseSearchable {
 
     /** 名称 */
     @ApiModelProperty(value = "名称", position = 10, required = true)
-    private String pid;
+    @JsonProperty(value = "pId")
+    private String pId;
 
     private String cameraUuid;
 
