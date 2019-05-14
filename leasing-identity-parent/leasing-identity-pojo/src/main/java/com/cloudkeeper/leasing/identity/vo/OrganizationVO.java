@@ -57,4 +57,9 @@ public class OrganizationVO extends BaseVO {
     /** 角色*/
     @ApiModelProperty(value = "角色", position = 24)
     private List<RoleVO> roleVOList;
+
+    /** 父组织名称 */
+    @ApiModelProperty(value = "父组织名称", position = 26, required = true)
+    private String parentOrganizationName;
+
 }
