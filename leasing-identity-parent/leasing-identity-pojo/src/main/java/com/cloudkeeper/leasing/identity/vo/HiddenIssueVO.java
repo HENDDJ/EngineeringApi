@@ -81,4 +81,23 @@ public class HiddenIssueVO extends BaseVO {
     @ApiModelProperty(value = "部门名称", position = 10, required = true)
     private String departmentName;
 
+    /** 处理图片 */
+    @ApiModelProperty(value = "处理图片", position = 10, required = true)
+    private String solveImage;
+
+    /** 处理结果描述 */
+    @ApiModelProperty(value = "处理结果描述", position = 10, required = true)
+    private String solveDes;
+
+    /** 处理完成时间 */
+    @ApiModelProperty(value = "处理完成时间", position = 10, required = true)
+    private LocalDate solveTime;
+
+    /** 附件 */
+    @ApiModelProperty(value = "附件", position = 10, required = true)
+    private String enclosure;
+
+
+
+
 }

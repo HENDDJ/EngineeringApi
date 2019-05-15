@@ -65,10 +65,11 @@ public class HiddenHandle extends BaseEntity {
     public <T> T convert(@Nonnull Class<T> clazz) {
         T convert = super.convert(clazz);
         HiddenHandleVO hiddenHandleVO = (HiddenHandleVO) convert;
-        if(!StringUtils.isEmpty(this.hiddenIssue)){
+        if(!StringUtils.isEmpty(this.hiddenIssue) && !StringUtils.isEmpty(this.hiddenIssue.getHiddenHandle())){
             hiddenHandleVO.setIssueName(this.hiddenIssue.getIssueName());
             hiddenHandleVO.setProjectId(this.hiddenIssue.getProjectId());
             hiddenHandleVO.setStatusName(this.hiddenIssue.getHiddenNode().getNodeDescript());
+            hiddenHandleVO.setProjectName(this.hiddenIssue.getProjectInfo().getName());
         }
 
         return (T) hiddenHandleVO;

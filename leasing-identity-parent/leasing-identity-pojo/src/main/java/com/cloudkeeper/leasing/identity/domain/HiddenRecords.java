@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 隐患流程记录
@@ -51,5 +49,11 @@ public class HiddenRecords extends BaseEntity {
     @ApiModelProperty(value = "描述", position = 10, required = true)
     @Column(length = 60)
     private String des;
+
+    /** 隐患信息 */
+    @ApiModelProperty(value = "隐患信息", position = 28)
+    @OneToOne
+    @JoinColumn(name = "issueId", insertable = false, updatable = false)
+    private HiddenIssue hiddenIssue;
 
 }

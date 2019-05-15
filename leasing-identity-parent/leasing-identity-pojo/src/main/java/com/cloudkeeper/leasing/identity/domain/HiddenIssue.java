@@ -2,6 +2,8 @@ package com.cloudkeeper.leasing.identity.domain;
 
 import com.cloudkeeper.leasing.base.domain.BaseEntity;
 import com.cloudkeeper.leasing.identity.vo.HiddenIssueVO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -103,7 +105,19 @@ public class HiddenIssue extends BaseEntity {
     @JoinColumn(name = "departmentId", insertable = false, updatable = false)
     private Organization organization;
 
+    /** 处理结果 */
+    @ApiModelProperty(value = "隐患", position = 10, required = true)
+    @JsonIgnore
+    @JsonBackReference
+    @OneToOne(mappedBy = "hiddenIssue")
+    private HiddenHandle hiddenHandle;
 
+//    /** 处理结果 */
+//    @ApiModelProperty(value = "隐患", position = 10, required = true)
+//    @JsonIgnore
+//    @JsonBackReference
+//    @OneToOne(mappedBy = "hiddenIssue")
+//    private HiddenRecords hiddenRecords;
 
     @Nonnull
     @Override
@@ -121,6 +135,12 @@ public class HiddenIssue extends BaseEntity {
         }
         if(!StringUtils.isEmpty(this.organization)){
             hiddenIssueVO.setDepartmentName(this.organization.getName());
+        }
+        if(!StringUtils.isEmpty(this.hiddenHandle)){
+            hiddenIssueVO.setSolveImage(this.hiddenHandle.getSolveImage());
+            hiddenIssueVO.setSolveDes(this.hiddenHandle.getSolveDes());
+            hiddenIssueVO.setSolveTime(this.hiddenHandle.getSolveTime());
+            hiddenIssueVO.setEnclosure(this.hiddenHandle.getEnclosure());
         }
 
         return (T) hiddenIssueVO;

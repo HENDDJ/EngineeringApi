@@ -57,4 +57,9 @@ public class HiddenHandleVO extends BaseVO {
     /** 状态描述 */
     @ApiModelProperty(value = "状态描述", position = 10, required = true)
     private String statusName;
+
+    /** 工程ID */
+    @ApiModelProperty(value = "工程ID", position = 10, required = true)
+    private String projectName;
+
 }
