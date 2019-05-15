@@ -116,7 +116,7 @@ public class HiddenIssue extends BaseEntity {
 //    @ApiModelProperty(value = "隐患", position = 10, required = true)
 //    @JsonIgnore
 //    @JsonBackReference
-//    @OneToOne(mappedBy = "hiddenIssue")
+//    @OneToMany(mappedBy = "hiddenIssue")
 //    private HiddenRecords hiddenRecords;
 
     @Nonnull

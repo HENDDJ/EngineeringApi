@@ -45,4 +45,8 @@ public class HiddenRecordsVO extends BaseVO {
     @ApiModelProperty(value = "描述", position = 10, required = true)
     private String des;
 
+    /** 用户姓名 */
+    @ApiModelProperty(value = "用户姓名", position = 10, required = true)
+    private String createdByName;
+
 }

@@ -1,6 +1,7 @@
 package com.cloudkeeper.leasing.identity.domain;
 
 import com.cloudkeeper.leasing.base.domain.BaseEntity;
+import com.cloudkeeper.leasing.identity.vo.HiddenRecordsVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.util.StringUtils;
 
+import javax.annotation.Nonnull;
 import javax.persistence.*;
 
 /**
@@ -52,8 +55,25 @@ public class HiddenRecords extends BaseEntity {
 
     /** 隐患信息 */
     @ApiModelProperty(value = "隐患信息", position = 28)
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "issueId", insertable = false, updatable = false)
     private HiddenIssue hiddenIssue;
+
+    /** 用户信息 */
+    @ApiModelProperty(value = "用户信息", position = 28)
+    @ManyToOne
+    @JoinColumn(name = "createdBy", insertable = false, updatable = false)
+    private Principal principal;
+
+    @Nonnull
+    @Override
+    public <T> T convert(@Nonnull Class<T> clazz) {
+        T convert = super.convert(clazz);
+        HiddenRecordsVO hiddenRecordsVO = (HiddenRecordsVO) convert;
+        if(!StringUtils.isEmpty(this.principal)){
+            hiddenRecordsVO.setCreatedByName(this.principal.getName());
+        }
+        return (T) hiddenRecordsVO;
+    }
 
 }
