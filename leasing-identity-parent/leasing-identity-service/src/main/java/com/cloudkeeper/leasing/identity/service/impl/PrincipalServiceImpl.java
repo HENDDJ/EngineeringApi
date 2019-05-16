@@ -130,29 +130,29 @@ public class PrincipalServiceImpl extends BaseServiceImpl<Principal> implements 
         return principalRepository.save(principal);
     }
 
-    @Nonnull
-    @Override
-    public Page<Principal> findAll(@Nonnull BaseSearchable searchable, @Nonnull Pageable pageable) {
-        PrincipalSearchable principalSearchable = (PrincipalSearchable) searchable;
-        // FIXME: 2018/9/26 0026 查询方式修改
-        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Principal.class);
-        if (StringUtils.hasText(principalSearchable.getCode())) {
-            detachedCriteria.add(Restrictions.like("code", principalSearchable.getCode(), MatchMode.ANYWHERE));
-        }
-        if (StringUtils.hasText(principalSearchable.getName())) {
-            detachedCriteria.add(Restrictions.like("name", principalSearchable.getName(), MatchMode.ANYWHERE));
-        }
-        if (StringUtils.hasText(principalSearchable.getOrganizationCode())) {
-            String sql = " exists(select 'X' from ck_id_principal_organization cipo" +
-                    " left join ck_id_organization cio on cio.id = cipo.organizationId" +
-                    " where cipo.principalId = {alias}.id" +
-                    " and cio.fullCode like '%" + principalSearchable.getOrganizationCode() + "%')";
-            detachedCriteria.add(Restrictions.sqlRestriction(sql));
-        }
-        detachedCriteria.add(Restrictions.eq("isDelete", principalSearchable.getIsDelete()));
-        pageable.getSort().forEach(order -> detachedCriteria.addOrder(order.getDirection().isAscending() ? Order.asc(order.getProperty()) : Order.desc(order.getProperty())));
-        return findAll(detachedCriteria, pageable);
-    }
+//    @Nonnull
+//    @Override
+//    public Page<Principal> findAll(@Nonnull BaseSearchable searchable, @Nonnull Pageable pageable) {
+//        PrincipalSearchable principalSearchable = (PrincipalSearchable) searchable;
+//        // FIXME: 2018/9/26 0026 查询方式修改
+//        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Principal.class);
+//        if (StringUtils.hasText(principalSearchable.getCode())) {
+//            detachedCriteria.add(Restrictions.like("code", principalSearchable.getCode(), MatchMode.ANYWHERE));
+//        }
+//        if (StringUtils.hasText(principalSearchable.getName())) {
+//            detachedCriteria.add(Restrictions.like("name", principalSearchable.getName(), MatchMode.ANYWHERE));
+//        }
+//        if (StringUtils.hasText(principalSearchable.getOrganizationCode())) {
+//            String sql = " exists(select 'X' from ck_id_principal_organization cipo" +
+//                    " left join ck_id_organization cio on cio.id = cipo.organizationId" +
+//                    " where cipo.principalId = {alias}.id" +
+//                    " and cio.fullCode like '%" + principalSearchable.getOrganizationCode() + "%')";
+//            detachedCriteria.add(Restrictions.sqlRestriction(sql));
+//        }
+//        detachedCriteria.add(Restrictions.eq("isDelete", principalSearchable.getIsDelete()));
+//        pageable.getSort().forEach(order -> detachedCriteria.addOrder(order.getDirection().isAscending() ? Order.asc(order.getProperty()) : Order.desc(order.getProperty())));
+//        return findAll(detachedCriteria, pageable);
+//    }
 
     @Override
     public void loadChildrenVO(@Nonnull PrincipalVO principalVO) {
