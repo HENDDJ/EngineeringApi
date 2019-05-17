@@ -43,7 +43,8 @@ public class ProjectInfoServiceImpl extends BaseServiceImpl<ProjectInfo> impleme
                 .withMatcher("property", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("size", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("license", ExampleMatcher.GenericPropertyMatchers.contains())
-                .withMatcher("sourcesFunds", ExampleMatcher.GenericPropertyMatchers.contains());
+                .withMatcher("sourcesFunds", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("regionId", ExampleMatcher.GenericPropertyMatchers.contains());
     }
 
 }

@@ -66,4 +66,6 @@ public class ProjectInfoVO extends BaseVO {
 
     private Date endTime;
 
+    private String regionId;
+
 }

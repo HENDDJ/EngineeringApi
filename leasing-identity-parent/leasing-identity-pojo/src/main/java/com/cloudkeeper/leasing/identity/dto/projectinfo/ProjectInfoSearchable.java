@@ -61,4 +61,6 @@ public class ProjectInfoSearchable extends BaseSearchable {
 
     private Integer enable;
 
+    private String regionId;
+
 }
