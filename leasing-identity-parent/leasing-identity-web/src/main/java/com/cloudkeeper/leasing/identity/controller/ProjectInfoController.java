@@ -83,4 +83,15 @@ public interface ProjectInfoController {
     Result<Page<ProjectInfoVO>> page(@ApiParam(value = "工程信息类查询条件", required = true) @RequestBody ProjectInfoSearchable projectInfoSearchable,
         @ApiParam(value = "分页参数", required = true) Pageable pageable);
 
+    /**
+     * 更新坐标
+     * @param id 工程信息类id
+     * @param projectInfoDTO 工程信息类 DTO
+     * @return 工程信息类 VO
+     */
+    @ApiOperation(value = "更新坐标", notes = "更新坐标", position = 6)
+    @GetMapping("/allId")
+    void updateAll();
+
+
 }

@@ -56,4 +56,9 @@ public class PrincipalEditDTO extends BaseEditDTO {
     @Length(max = 36)
     private String roleId;
 
+    /** 工程id */
+    @ApiModelProperty(value = "工程id", position = 24, required = true)
+    @Length(max = 36)
+    private String proId;
+
 }

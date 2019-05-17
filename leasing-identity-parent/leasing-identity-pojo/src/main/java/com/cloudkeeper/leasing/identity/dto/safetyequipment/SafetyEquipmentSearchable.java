@@ -77,4 +77,8 @@ public class SafetyEquipmentSearchable extends BaseSearchable {
     @ApiModelProperty(value = "下次检查时间", position = 0, required = true)
     private LocalDate nextInspectionTime;
 
+    /** 工程id */
+    @ApiModelProperty(value = "工程id", position = 0, required = true)
+    private String proId;
+
 }

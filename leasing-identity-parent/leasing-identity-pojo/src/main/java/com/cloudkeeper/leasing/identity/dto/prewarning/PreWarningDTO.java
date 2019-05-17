@@ -37,4 +37,8 @@ public class PreWarningDTO extends BaseEditDTO {
     @ApiModelProperty(value = "预警描述", position = 10, required = true)
     private String warnDescribe;
 
+    /** 工程id */
+    @ApiModelProperty(value = "工程id", position = 10, required = true)
+    private String proId;
+
 }

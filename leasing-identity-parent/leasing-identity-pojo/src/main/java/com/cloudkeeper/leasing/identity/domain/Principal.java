@@ -85,6 +85,17 @@ public class Principal extends BaseEntity {
     @JoinColumn(name = "roleId", insertable = false, updatable = false)
     private Role role;
 
+    /** 工程id */
+    @ApiModelProperty(value = "工程id", position = 26, required = true)
+    @Column(length = 36)
+    private String proId;
+
+    /** 工程 */
+    @ApiModelProperty(value = "工程", position = 28)
+    @ManyToOne
+    @JoinColumn(name = "proId", insertable = false, updatable = false)
+    private ProjectInfo projectInfo;
+
     @Nonnull
     @Override
     public <T> T convert(@Nonnull Class<T> clazz) {
@@ -96,6 +107,9 @@ public class Principal extends BaseEntity {
         if(!StringUtils.isEmpty(this.role)){
             principalVO.setRoleName(this.role.getName());
             principalVO.setRoleCode(this.role.getCode());
+        }
+        if(!StringUtils.isEmpty(this.projectInfo)){
+            principalVO.setProjectName(this.projectInfo.getName());
         }
 
         return (T) principalVO;

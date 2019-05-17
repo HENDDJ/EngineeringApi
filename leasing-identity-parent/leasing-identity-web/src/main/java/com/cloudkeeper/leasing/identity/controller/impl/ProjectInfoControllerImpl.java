@@ -7,7 +7,9 @@ import com.cloudkeeper.leasing.identity.dto.projectinfo.ProjectInfoDTO;
 import com.cloudkeeper.leasing.identity.dto.projectinfo.ProjectInfoSearchable;
 import com.cloudkeeper.leasing.identity.service.ProjectInfoService;
 import com.cloudkeeper.leasing.identity.vo.ProjectInfoVO;
+import com.sun.net.httpserver.Authenticator;
 import io.swagger.annotations.ApiParam;
+import liquibase.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +80,28 @@ public class ProjectInfoControllerImpl implements ProjectInfoController {
         Page<ProjectInfo> projectInfoPage = projectInfoService.findAll(projectInfoSearchable, pageable);
         Page<ProjectInfoVO> projectInfoVOPage = ProjectInfo.convert(projectInfoPage, ProjectInfoVO.class);
         return Result.of(projectInfoVOPage);
+    }
+
+    @Override
+    public void updateAll() {
+        double x_PI = 3.14159265358979324 * 3000.0 / 180.0;
+        List<ProjectInfo> list = projectInfoService.findAll();
+        ProjectInfo projectInfo = new ProjectInfo();
+        for(int i=0; i<list.size(); i++){
+            projectInfo = list.get(i);
+            if(StringUtils.isEmpty(projectInfo.getLatitude())) {
+                continue;
+            }else{
+                double lng = Double.valueOf(projectInfo.getLongitude());
+                double lat = Double.valueOf(projectInfo.getLatitude());
+                double z = Math.sqrt(lng * lng + lat * lat) + 0.00002 * Math.sin(lat * x_PI);
+                double theta = Math.atan2(lat, lng) + 0.000003 * Math.cos(lng * x_PI);
+                projectInfo.setLongitude(String.valueOf( z * Math.cos(theta) + 0.0065));
+                projectInfo.setLatitude(String.valueOf( z * Math.sin(theta) + 0.006));
+                projectInfoService.save(projectInfo);
+            }
+
+        }
     }
 
 }

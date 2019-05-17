@@ -1,6 +1,7 @@
 package com.cloudkeeper.leasing.identity.domain;
 
 import com.cloudkeeper.leasing.base.domain.BaseEntity;
+import com.cloudkeeper.leasing.identity.vo.SafetyEquipmentVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,10 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.util.StringUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.annotation.Nonnull;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -92,6 +93,29 @@ public class SafetyEquipment extends BaseEntity {
     @ApiModelProperty(value = "下次检查时间", position = 0, required = true)
     @Column(length = 60)
     private LocalDate nextInspectionTime;
+
+    /** 工程id */
+    @ApiModelProperty(value = "工程id", position = 26, required = true)
+    @Column(length = 36)
+    private String proId;
+
+    /** 工程 */
+    @ApiModelProperty(value = "工程", position = 28)
+    @ManyToOne
+    @JoinColumn(name = "proId", insertable = false, updatable = false)
+    private ProjectInfo projectInfo;
+
+    @Nonnull
+    @Override
+    public <T> T convert(@Nonnull Class<T> clazz) {
+        T convert = super.convert(clazz);
+        SafetyEquipmentVO safetyEquipmentVO = (SafetyEquipmentVO) convert;
+        if(!StringUtils.isEmpty(this.projectInfo)){
+            safetyEquipmentVO.setProjectName(this.projectInfo.getName());
+        }
+
+        return (T) safetyEquipmentVO;
+    }
 
 
 }

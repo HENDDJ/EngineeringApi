@@ -77,4 +77,11 @@ public class SafetyEquipmentVO extends BaseVO {
     @ApiModelProperty(value = "下次检查时间", position = 0, required = true)
     private LocalDate nextInspectionTime;
 
+    /** 工程id */
+    @ApiModelProperty(value = "工程id", position = 24, required = true)
+    private String proId;
+
+    @ApiModelProperty(value = "工程名称", position = 26, required = true)
+    private String projectName;
+
 }
