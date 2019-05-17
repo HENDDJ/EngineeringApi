@@ -8,14 +8,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * 工程信息类
+ *
  * @author asher
  */
 @ApiModel(value = "工程信息类", description = "工程信息类")
@@ -47,5 +48,13 @@ public class ProjectInfo extends BaseEntity {
     private Date startTime;
     private Date endTime;
     private Integer enable;
+
+    @ApiModelProperty(value = "地区id，关联至摄像头")
+    private String regionId;
+
+    @OneToOne
+    @JoinColumn(name = "regionId", insertable = false, updatable = false)
+    @NotFound(action = NotFoundAction.IGNORE)
+    private ProjectRegion projectRegion;
 
 }

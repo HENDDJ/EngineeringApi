@@ -66,4 +66,5 @@ public class ProjectInfoDTO extends BaseEditDTO {
 
     private Date endTime;
 
+    private String regionId;
 }
