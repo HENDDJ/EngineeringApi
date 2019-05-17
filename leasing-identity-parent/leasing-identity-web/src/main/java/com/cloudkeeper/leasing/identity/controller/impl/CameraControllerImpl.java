@@ -1,5 +1,6 @@
 package com.cloudkeeper.leasing.identity.controller.impl;
 
+import com.cloudkeeper.leasing.base.model.ResponseMessageConstants;
 import com.cloudkeeper.leasing.base.model.Result;
 import com.cloudkeeper.leasing.identity.controller.CameraController;
 import com.cloudkeeper.leasing.identity.domain.Camera;
@@ -82,7 +83,7 @@ public class CameraControllerImpl implements CameraController {
 
     @Override
     public Result<String> getPreviewXml(@PathVariable String cameraUuid) {
-        return Result.of(cameraService.getPreviewXml(cameraUuid));
+        return Result.of(ResponseMessageConstants.UPDATE_SUCCESS,cameraService.getPreviewXml(cameraUuid));
     }
 
 }
