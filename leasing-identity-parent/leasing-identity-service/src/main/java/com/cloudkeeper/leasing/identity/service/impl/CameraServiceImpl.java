@@ -38,7 +38,7 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
     /** 监控 repository */
     private final CameraRepository cameraRepository;
 
-    private String IP_PORT = "http://122.97.218.162:18080";
+    private String IP_PORT = "http://172.16.1.133:8080";
 
     private String PERVIEW_URL = "/openapi/service/vss/preview/getPreviewParamByCameraUuid";
 

@@ -20,7 +20,9 @@ public class CameraPreviewParam implements Serializable {
 
     public String opUserUuid = "c26a811c141a11e79aeeb32ef95273f2";
 
-    public String netZoneUuid = "5b994421aced4e2d9a76179e8cc70734";
+//    public String netZoneUuid = "5b994421aced4e2d9a76179e8cc70734";
+    public String netZoneUuid = "f5816cf43fcc41d880d9f636fa8bc443";
+
 
     public String secret = "69681c3587194a50a2b11f1335ad6f41";
 
