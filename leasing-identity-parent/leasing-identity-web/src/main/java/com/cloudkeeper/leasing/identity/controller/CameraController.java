@@ -1,5 +1,6 @@
 package com.cloudkeeper.leasing.identity.controller;
 
+import com.cloudkeeper.leasing.identity.camera.CameraPreviewParam;
 import com.cloudkeeper.leasing.identity.dto.camera.CameraDTO;
 import com.cloudkeeper.leasing.identity.dto.camera.CameraSearchable;
 import com.cloudkeeper.leasing.identity.vo.CameraVO;
@@ -82,5 +83,9 @@ public interface CameraController {
     @PostMapping("/page")
     Result<Page<CameraVO>> page(@ApiParam(value = "监控查询条件", required = true) @RequestBody CameraSearchable cameraSearchable,
         @ApiParam(value = "分页参数", required = true) Pageable pageable);
+
+    @ApiOperation(value = "获取预览xml")
+    @PostMapping("/getPreviewXml/{cameraUuid}")
+    Result<String> getPreviewXml(@ApiParam(value = "监控查询条件", required = true) @PathVariable(name = "cameraUuid") String cameraUuid);
 
 }

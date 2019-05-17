@@ -80,4 +80,9 @@ public class CameraControllerImpl implements CameraController {
         return Result.of(cameraVOPage);
     }
 
+    @Override
+    public Result<String> getPreviewXml(@PathVariable String cameraUuid) {
+        return Result.of(cameraService.getPreviewXml(cameraUuid));
+    }
+
 }
