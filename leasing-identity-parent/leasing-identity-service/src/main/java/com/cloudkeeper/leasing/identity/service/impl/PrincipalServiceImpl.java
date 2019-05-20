@@ -77,7 +77,8 @@ public class PrincipalServiceImpl extends BaseServiceImpl<Principal> implements 
     public ExampleMatcher defaultExampleMatcher() {
         return super.defaultExampleMatcher()
                 .withMatcher("code", ExampleMatcher.GenericPropertyMatchers.contains())
-                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("proId", ExampleMatcher.GenericPropertyMatchers.contains());
     }
 
     @Override

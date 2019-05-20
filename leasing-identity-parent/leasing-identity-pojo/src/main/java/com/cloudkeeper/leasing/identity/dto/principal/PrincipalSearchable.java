@@ -26,4 +26,8 @@ public class PrincipalSearchable extends BaseSearchable {
     /** 组织编码*/
     @ApiModelProperty(value = "组织编码", position = 10)
     private String organizationCode;
+
+    /** 项目id*/
+    @ApiModelProperty(value = "项目id", position = 10)
+    private String proId;
 }
