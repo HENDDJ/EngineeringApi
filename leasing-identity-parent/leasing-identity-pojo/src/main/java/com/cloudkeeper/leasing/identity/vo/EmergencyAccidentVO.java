@@ -81,4 +81,28 @@ public class EmergencyAccidentVO extends BaseVO {
     @ApiModelProperty(value = "应急事故处理方案", position = 10, required = true)
     private String emergencyAccidentHandle;
 
+    /** 处理方式 */
+    @ApiModelProperty(value = "处理方式", position = 10, required = true)
+    private String solution;
+
+    /** 预防措施 */
+    @ApiModelProperty(value = "预防措施", position = 10, required = true)
+    private String precaution;
+
+    /** 附件 */
+    @ApiModelProperty(value = "附件", position = 10, required = true)
+    private String handleEnclosure;
+
+    /** 处理完成情况 */
+    @ApiModelProperty(value = "处理完成情况", position = 10, required = true)
+    private String solutionGrade;
+
+    /** 处理结果描述 */
+    @ApiModelProperty(value = "处理结果描述", position = 10, required = true)
+    private String solutionResult;
+
+    /** 附件 */
+    @ApiModelProperty(value = "附件", position = 10, required = true)
+    private String resultEnclosure;
+
 }

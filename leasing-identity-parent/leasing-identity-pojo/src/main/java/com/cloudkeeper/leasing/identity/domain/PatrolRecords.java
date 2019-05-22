@@ -1,6 +1,7 @@
 package com.cloudkeeper.leasing.identity.domain;
 
 import com.cloudkeeper.leasing.base.domain.BaseEntity;
+import com.cloudkeeper.leasing.identity.vo.PatrolRecordsVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,10 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.util.StringUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.annotation.Nonnull;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -63,6 +64,27 @@ public class PatrolRecords extends BaseEntity {
     @Column(length = 60)
     private String patrolDescribe;
 
+    /** 工程Id */
+    @ApiModelProperty(value = "工程Id", position = 10, required = true)
+    @Column(length = 60)
+    private String proId;
 
+    /** 工程 */
+    @ApiModelProperty(value = "工程", position = 28)
+    @OneToOne
+    @JoinColumn(name = "proId", insertable = false, updatable = false)
+    private ProjectInfo projectInfo;
+
+
+    @Nonnull
+    @Override
+    public <T> T convert(@Nonnull Class<T> clazz) {
+        T convert = super.convert(clazz);
+        PatrolRecordsVO patrolRecordsVO = (PatrolRecordsVO) convert;
+        if(!StringUtils.isEmpty(this.projectInfo)){
+            patrolRecordsVO.setProName(this.projectInfo.getName());
+        }
+        return (T) patrolRecordsVO;
+    }
 
 }

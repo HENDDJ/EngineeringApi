@@ -15,6 +15,10 @@ import lombok.Setter;
 @ApiModel(value = "用户查询DTO", description = "用户查询DTO")
 public class PrincipalSearchable extends BaseSearchable {
 
+    /** 登录Id*/
+    @ApiModelProperty(value = "登录ID", position = 10)
+    private String id;
+
     /** 登录名*/
     @ApiModelProperty(value = "登录名", position = 10)
     private String code;

@@ -53,4 +53,8 @@ public class PatrolRecordsSearchable extends BaseSearchable {
     @ApiModelProperty(value = "描述", position = 10, required = true)
     private String patrolDescribe;
 
+    /** 工程Id */
+    @ApiModelProperty(value = "工程Id", position = 10, required = true)
+    private String proId;
+
 }

@@ -113,11 +113,18 @@ public class EmergencyAccident extends BaseEntity {
         EmergencyAccidentVO emergencyAccidentVO = (EmergencyAccidentVO) convert;
         if(!StringUtils.isEmpty(this.emergencyAccidentHandle)){
             emergencyAccidentVO.setEmergencyAccidentHandle("1");
+            emergencyAccidentVO.setSolution(this.emergencyAccidentHandle.getSolution());
+            emergencyAccidentVO.setPrecaution(this.emergencyAccidentHandle.getPrecaution());
+            emergencyAccidentVO.setHandleEnclosure(this.emergencyAccidentHandle.getEnclosure());
         }else{
             emergencyAccidentVO.setEmergencyAccidentHandle("0");
         }
         if(!StringUtils.isEmpty(this.emergencyAccidentResult)){
             emergencyAccidentVO.setEmergencyAccidentResult("1");
+            emergencyAccidentVO.setSolutionGrade(this.emergencyAccidentResult.getSolutionGrade());
+            emergencyAccidentVO.setSolutionResult(this.emergencyAccidentResult.getSolutionResult());
+            emergencyAccidentVO.setResultEnclosure(this.emergencyAccidentResult.getEnclosure());
+
         }else{
             emergencyAccidentVO.setEmergencyAccidentResult("0");
         }

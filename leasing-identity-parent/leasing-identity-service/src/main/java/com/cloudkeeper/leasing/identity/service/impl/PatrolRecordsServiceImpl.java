@@ -34,6 +34,8 @@ public class PatrolRecordsServiceImpl extends BaseServiceImpl<PatrolRecords> imp
                 .withMatcher("patrolObject", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("patrolPerson", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("patrolResult", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("patrolTime", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("proId", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("patrolDescribe", ExampleMatcher.GenericPropertyMatchers.contains());
     }
 

@@ -53,4 +53,14 @@ public class PatrolRecordsVO extends BaseVO {
     @ApiModelProperty(value = "描述", position = 10, required = true)
     private String patrolDescribe;
 
+    /** 工程Id */
+    @ApiModelProperty(value = "工程Id", position = 10, required = true)
+    private String proId;
+
+    /** 工程 */
+    @ApiModelProperty(value = "工程", position = 10, required = true)
+    private String proName;
+
+
+
 }
