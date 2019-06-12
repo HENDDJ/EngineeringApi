@@ -12,6 +12,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,8 +75,8 @@ public class SysRoutes extends BaseEntity implements Comparable{
 
     /** 子路由*/
     @ApiModelProperty(value = "子路由", position = 13)
-    @OneToMany(mappedBy = "sysRoutes")
-    private List<SysRoutes> children;
+    @OneToMany(mappedBy = "sysRoutes",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<SysRoutes> children = new ArrayList<>();
 
     @Override
     public int compareTo(Object roleMenu) {

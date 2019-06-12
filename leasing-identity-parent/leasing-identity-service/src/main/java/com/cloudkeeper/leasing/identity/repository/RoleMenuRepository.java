@@ -29,7 +29,7 @@ public interface RoleMenuRepository extends BaseRepository<RoleMenu> {
      * @return 角色菜单关系列表
      */
     @Nonnull
-    List<RoleMenu> findAllByRoleIdOrderBySysRoutesCreatedAt(@Nonnull String roleId);
+    List<RoleMenu> findAllByRoleIdOrderBySysRoutesCreatedAtAsc(@Nonnull String roleId);
 
     /**
      * 删除角色与菜单的关系
