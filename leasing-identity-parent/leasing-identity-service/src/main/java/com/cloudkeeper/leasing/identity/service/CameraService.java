@@ -12,4 +12,5 @@ import com.cloudkeeper.leasing.base.service.BaseService;
 public interface CameraService extends BaseService<Camera> {
 
     String getPreviewXml(String cameraUuid);
+      void freshCamera();
 }

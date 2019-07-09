@@ -88,4 +88,11 @@ public class CameraControllerImpl implements CameraController {
         return Result.of(ResponseMessageConstants.UPDATE_SUCCESS,cameraService.getPreviewXml(cameraUuid));
     }
 
+    @Override
+    @Authorization(required = false)
+    public Result<String> freshCamera(){
+        cameraService.freshCamera();
+        return Result.ofUpdateSuccess("更新成功");
+    }
+
 }

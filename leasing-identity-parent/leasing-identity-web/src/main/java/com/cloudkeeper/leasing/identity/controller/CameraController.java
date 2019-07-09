@@ -88,4 +88,7 @@ public interface CameraController {
     @PostMapping("/getPreviewXml/{cameraUuid}")
     Result<String> getPreviewXml(@ApiParam(value = "监控查询条件", required = true) @PathVariable(name = "cameraUuid") String cameraUuid);
 
+    @ApiOperation(value = "刷新摄像头")
+    @PostMapping("/freshCamera")
+    Result<String> freshCamera();
 }
