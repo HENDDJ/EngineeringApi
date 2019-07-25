@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Nonnull;
@@ -90,12 +92,14 @@ public class HiddenIssue extends BaseEntity {
     /** 用户 */
     @ApiModelProperty(value = "用户", position = 28)
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "userId", insertable = false, updatable = false)
     private Principal principal;
 
     /** 工程 */
     @ApiModelProperty(value = "工程", position = 28)
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "projectId", insertable = false, updatable = false)
     private ProjectInfo projectInfo;
 
