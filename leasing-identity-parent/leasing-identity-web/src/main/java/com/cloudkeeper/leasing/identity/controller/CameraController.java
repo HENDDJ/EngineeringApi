@@ -1,6 +1,7 @@
 package com.cloudkeeper.leasing.identity.controller;
 
 import com.cloudkeeper.leasing.identity.camera.CameraPreviewParam;
+import com.cloudkeeper.leasing.identity.camera.PreviewParam;
 import com.cloudkeeper.leasing.identity.dto.camera.CameraDTO;
 import com.cloudkeeper.leasing.identity.dto.camera.CameraSearchable;
 import com.cloudkeeper.leasing.identity.vo.CameraVO;
@@ -91,4 +92,8 @@ public interface CameraController {
     @ApiOperation(value = "刷新摄像头")
     @PostMapping("/freshCamera")
     Result<String> freshCamera();
+
+    @ApiOperation(value = "获取预览")
+    @PostMapping("/getPreviewParam{cameraUuid}")
+    Result<PreviewParam> getPreviewParam(@PathVariable(name = "cameraUuid") String cameraUuid);
 }

@@ -3,6 +3,7 @@ package com.cloudkeeper.leasing.identity.controller.impl;
 import com.cloudkeeper.leasing.base.annotation.Authorization;
 import com.cloudkeeper.leasing.base.model.ResponseMessageConstants;
 import com.cloudkeeper.leasing.base.model.Result;
+import com.cloudkeeper.leasing.identity.camera.PreviewParam;
 import com.cloudkeeper.leasing.identity.controller.CameraController;
 import com.cloudkeeper.leasing.identity.domain.Camera;
 import com.cloudkeeper.leasing.identity.dto.camera.CameraDTO;
@@ -95,4 +96,9 @@ public class CameraControllerImpl implements CameraController {
         return Result.ofUpdateSuccess("更新成功");
     }
 
+    @Override
+    @Authorization(required = false)
+    public Result<PreviewParam> getPreviewParam(String cameraUuid){
+       return Result.of(0,"查询成功",cameraService.getPreviewParam(cameraUuid));
+    }
 }

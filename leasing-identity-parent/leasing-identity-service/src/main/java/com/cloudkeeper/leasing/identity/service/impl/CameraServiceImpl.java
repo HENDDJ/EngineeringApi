@@ -23,6 +23,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -33,7 +36,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CameraServiceImpl extends BaseServiceImpl<Camera> implements CameraService {
 
-    /** 监控 repository */
+    /**
+     * 监控 repository
+     */
     private final CameraRepository cameraRepository;
 
     private final HikRegionService hikRegionService;
@@ -97,7 +102,7 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
 
     @Override
     public String getPreviewXml(String cameraUuid) {
-        CameraPreviewParam cameraPreviewParam =  new CameraPreviewParam();
+        CameraPreviewParam cameraPreviewParam = new CameraPreviewParam();
         cameraPreviewParam.setCameraUuid(cameraUuid);
         ObjectMapper param = new ObjectMapper();
         String fullUrl = null;
@@ -107,17 +112,19 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
             headers.add("Accept", MediaType.APPLICATION_JSON_UTF8.toString());
-            HttpEntity entity = new HttpEntity(cameraPreviewParam,headers);
-            ResponseEntity  responseEntity = restTemplate.exchange(fullUrl, HttpMethod.POST, entity,String.class);
+            HttpEntity entity = new HttpEntity(cameraPreviewParam, headers);
+            ResponseEntity responseEntity = restTemplate.exchange(fullUrl, HttpMethod.POST, entity, String.class);
             return responseEntity.getBody().toString();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;
         }
     }
+
     /**
      * 获取请求token
-     * @param URI 相对接口的请求地址
+     *
+     * @param URI  相对接口的请求地址
      * @param json 需要参与生成token的入参json串
      * @return token
      */
@@ -128,12 +135,13 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
 
     /**
      * 获取请求全路径
-     * @param URI 相对接口的请求地址
+     *
+     * @param URI  相对接口的请求地址
      * @param json 需要参与生成token的入参json串
      * @return 请求全路径
      */
     @JsonIgnore
-    private static String getFullUrl(String URI,String json) {
+    private static String getFullUrl(String URI, String json) {
         String token = generateToken(URI, json);
         return String.format("%s?token=%s", IP_PORT + URI, token.toUpperCase());
     }
@@ -145,11 +153,11 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
         CameraDefaultUuid cameraDefaultUuid = new CameraDefaultUuid();
         try {
             String str = param.writeValueAsString(cameraDefaultUuid);
-            String fullUrl = getFullUrl("/openapi/service/base/user/getDefaultUserUuid",str);
+            String fullUrl = getFullUrl("/openapi/service/base/user/getDefaultUserUuid", str);
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-            HttpEntity<String> entity = new HttpEntity<String>(str,headers);
+            HttpEntity<String> entity = new HttpEntity<String>(str, headers);
             ResponseEntity responseEntity = restTemplate.exchange(fullUrl, HttpMethod.POST, entity, String.class);
             return responseEntity.getBody().toString();
         } catch (JsonProcessingException e) {
@@ -166,11 +174,11 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
         cameraDefaultUnit.setSubSystemCode("1048576");
         try {
             String str = param.writeValueAsString(cameraDefaultUnit);
-            String fullUrl = getFullUrl("/openapi/service/base/org/getDefaultUnit",str);
+            String fullUrl = getFullUrl("/openapi/service/base/org/getDefaultUnit", str);
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-            HttpEntity<String> entity = new HttpEntity<String>(str,headers);
+            HttpEntity<String> entity = new HttpEntity<String>(str, headers);
             ResponseEntity responseEntity = restTemplate.exchange(fullUrl, HttpMethod.POST, entity, String.class);
             return responseEntity.getBody().toString();
         } catch (JsonProcessingException e) {
@@ -185,12 +193,12 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
         CameraRegionsByUnitUuid cameraRegionsByUnitUuid = new CameraRegionsByUnitUuid();
         String UUID = getDefaultUUID();
         try {
-            BackMessage backMessage =param.readValue(UUID,BackMessage.class);
+            BackMessage backMessage = param.readValue(UUID, BackMessage.class);
             cameraRegionsByUnitUuid.setOpUserUuid(backMessage.getData());
-            BackMessageParent backMessageParent =param.readValue(getDefaultUnit(backMessage.getData()),BackMessageParent.class);
+            BackMessageParent backMessageParent = param.readValue(getDefaultUnit(backMessage.getData()), BackMessageParent.class);
 
             cameraRegionsByUnitUuid.setParentUuid("f6ed32f2f6c941ce964e1f9740ddf09f");
-        }catch  (JsonParseException e) {
+        } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
             e.printStackTrace();
@@ -199,11 +207,11 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
         }
         try {
             String str = param.writeValueAsString(cameraRegionsByUnitUuid);
-            String fullUrl = getFullUrl("/openapi/service/base/org/getRegionsByParentUuid",str);
+            String fullUrl = getFullUrl("/openapi/service/base/org/getRegionsByParentUuid", str);
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-            HttpEntity<String> entity = new HttpEntity<>(str,headers);
+            HttpEntity<String> entity = new HttpEntity<>(str, headers);
             ResponseEntity responseEntity = restTemplate.exchange(fullUrl, HttpMethod.POST, entity, String.class);
             return responseEntity.getBody().toString();
         } catch (JsonProcessingException e) {
@@ -212,45 +220,46 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
         }
     }
 
-    public  void freshCamera(){
+    public void freshCamera() {
         ObjectMapper param = new ObjectMapper();
-        try{
-            CameraRegionByParent cameraRegionByParent = param.readValue(getRegionsByUnits(),CameraRegionByParent.class);
+        try {
+            CameraRegionByParent cameraRegionByParent = param.readValue(getRegionsByUnits(), CameraRegionByParent.class);
             CameraRegionsByUnitUuidData cameraRegionsByUnitUuidData = cameraRegionByParent.getData();
             List<ChildRegions> list = cameraRegionsByUnitUuidData.getList();
             StringBuffer regionUuids = new StringBuffer();
             hikRegionRepository.truncateTable();
-            for(int i=0;i<list.size();i++){
+            for (int i = 0; i < list.size(); i++) {
                 HikRegion hikRegion = new HikRegion();
                 hikRegion.setRegionUuid(list.get(i).getRegionUuid());
                 hikRegion.setName(list.get(i).getName());
                 hikRegion.setEnable(0);
                 hikRegionService.save(hikRegion);
-                if(i == 0){
+                if (i == 0) {
                     regionUuids.append(list.get(i).getRegionUuid());
-                }else {
-                    regionUuids.append(","+list.get(i).getRegionUuid());
+                } else {
+                    regionUuids.append("," + list.get(i).getRegionUuid());
                 }
-            };
+            }
+            ;
             ObjectMapper objectMapper = new ObjectMapper();
             String UUID = getDefaultUUID();
-              BackMessage backMessage =objectMapper.readValue(UUID,BackMessage.class);
+            BackMessage backMessage = objectMapper.readValue(UUID, BackMessage.class);
             CameraRegionUuids cameraRegionUuids = new CameraRegionUuids();
             cameraRegionUuids.setOpUserUuid(backMessage.getData());
             cameraRegionUuids.setRegionUuids(regionUuids.toString());
 
             String str = param.writeValueAsString(cameraRegionUuids);
-            String fullUrl = getFullUrl("/openapi/service/vss/res/getCamerasEx",str);
+            String fullUrl = getFullUrl("/openapi/service/vss/res/getCamerasEx", str);
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-            HttpEntity<String> entity = new HttpEntity<>(str,headers);
+            HttpEntity<String> entity = new HttpEntity<>(str, headers);
             ResponseEntity responseEntity = restTemplate.exchange(fullUrl, HttpMethod.POST, entity, String.class);
             String body = responseEntity.getBody().toString();
-            CameraBody cameraBody = objectMapper.readValue(body,CameraBody.class);
+            CameraBody cameraBody = objectMapper.readValue(body, CameraBody.class);
             List<CameraBodyChild> cameraBodyChildren = cameraBody.getData().getList();
             cameraRepository.truncateTable();
-            for(int i=0;i<cameraBodyChildren.size();i++){
+            for (int i = 0; i < cameraBodyChildren.size(); i++) {
                 Camera camera = new Camera();
                 camera.setCameraName(cameraBodyChildren.get(i).getCameraName());
                 camera.setCameraType(cameraBodyChildren.get(i).getCameraType());
@@ -263,7 +272,7 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
                 super.save(camera);
             }
 
-        }catch  (JsonParseException e) {
+        } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
             e.printStackTrace();
@@ -271,5 +280,57 @@ public class CameraServiceImpl extends BaseServiceImpl<Camera> implements Camera
             e.printStackTrace();
         }
 
+    }
+
+    public PreviewParam getPreviewParam(String cameraUuid) {
+        Long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+        String dateTimeStr = "1970-01-01 08:00:00";
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Long dateTime = LocalDateTime.parse(dateTimeStr, df).toInstant(ZoneOffset.of("+8")).toEpochMilli();
+        Long time = now - dateTime;
+
+        ObjectMapper param = new ObjectMapper();
+        String UUID = getDefaultUUID();
+        PreViewParamData preViewParamData = new PreViewParamData();
+        String netZoneUuid = "5b994421aced4e2d9a76179e8cc70734";
+
+        try {
+            String opUserUuid;
+            BackMessage backMessage = param.readValue(UUID, BackMessage.class);
+            opUserUuid = backMessage.getData();
+            preViewParamData.setOpUserUuid(opUserUuid);
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        preViewParamData.setAppkey(APP_KEY);
+        preViewParamData.setCameraUuid(cameraUuid);
+        preViewParamData.setNetZoneUuid(netZoneUuid);
+        preViewParamData.setTime(time);
+        try {
+            String str = param.writeValueAsString(preViewParamData);
+            String fullUrl = getFullUrl("/openapi/service/vss/preview/getPreviewParamByCameraUuid", str);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+            HttpEntity<String> entity = new HttpEntity<>(str, headers);
+            ResponseEntity responseEntity = restTemplate.exchange(fullUrl, HttpMethod.POST, entity, String.class);
+            String body = responseEntity.getBody().toString();
+            PreviewParam previewParam = param.readValue(body, PreviewParam.class);
+            return previewParam;
+        }catch (JsonParseException e) {
+            e.printStackTrace();
+            return null;
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
